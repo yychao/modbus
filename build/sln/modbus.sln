@@ -9,6 +9,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtu_test_client", "..\..\te
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtu_test_server", "..\..\tests\rtu_test_server\rtu_test_server.vcproj", "{179C1786-104A-4047-877E-49DC92B42737}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3883EC13-17BC-4FC5-BDC5-C20BE2E79ADE} = {3883EC13-17BC-4FC5-BDC5-C20BE2E79ADE}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
