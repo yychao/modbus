@@ -143,7 +143,11 @@
 #define PACKAGE_URL _T("")
 
 /* Define to the version of this package. */
+#ifdef _WIN32_WCE
 #define PACKAGE_VERSION _T("3.1.2")
+#else
+#define PACKAGE_VERSION "3.1.2"
+#endif
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1

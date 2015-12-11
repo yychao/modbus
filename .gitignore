@@ -37,4 +37,6 @@
 /build/intermediate
 /lib
 /bin
+/lib_x86
+/bin_x86
 

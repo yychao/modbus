@@ -21,9 +21,12 @@
 #include "modbus-version.h"
 
 #if defined(_MSC_VER)
-#include "windows.h"
-#include "winbase.h"
+// #include "windows.h"
+// #include "winbase.h"
+#include <tchar.h>
+#ifdef _WIN32_WCE
 int errno;
+#endif
 #endif
 
 #define mb_fprintf  _tprintf

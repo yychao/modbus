@@ -1267,8 +1267,8 @@ int modbus_read_registers(modbus_t *ctx, int addr, int nb, uint16_t *dest)
 
     if (nb > MODBUS_MAX_READ_REGISTERS) {
         if (ctx->debug) {
-            mb_fprintf(_T("ERROR Too many registers requested (%d > %d)\n",
-                    nb, MODBUS_MAX_READ_REGISTERS));
+            mb_fprintf(_T("ERROR Too many registers requested (%d > %d)\n"),
+                    nb, MODBUS_MAX_READ_REGISTERS);
         }
         errno = EMBMDATA;
         return -1;
@@ -1435,8 +1435,8 @@ int modbus_write_registers(modbus_t *ctx, int addr, int nb, const uint16_t *src)
 
     if (nb > MODBUS_MAX_WRITE_REGISTERS) {
         if (ctx->debug) {
-            mb_fprintf(_T("ERROR Trying to write to too many registers (%d > %d)\n",
-                    nb, MODBUS_MAX_WRITE_REGISTERS));
+            mb_fprintf(_T("ERROR Trying to write to too many registers (%d > %d)\n"),
+                    nb, MODBUS_MAX_WRITE_REGISTERS);
         }
         errno = EMBMDATA;
         return -1;
