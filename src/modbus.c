@@ -315,7 +315,8 @@ static int compute_data_length_after_meta(modbus_t *ctx, uint8_t *msg,
         /* MSG_CONFIRMATION */
         if (function <= MODBUS_FC_READ_INPUT_REGISTERS ||
             function == MODBUS_FC_REPORT_SLAVE_ID ||
-            function == MODBUS_FC_WRITE_AND_READ_REGISTERS) {
+            function == MODBUS_FC_WRITE_AND_READ_REGISTERS ||
+            function == MODBUS_FC_READ_FILE) {
             length = msg[ctx->backend->header_length + 1];
         } else {
             length = 0;
@@ -1111,7 +1112,7 @@ int modbus_reply_exception(modbus_t *ctx, const uint8_t *req,
 
 /* Reads IO status */
 static int read_io_status(modbus_t *ctx, int function,
-                          int addr, int nb, uint8_t *dest)
+                          int addr, int nb, uint16_t *dest)
 {
     int rc;
     int req_length;
@@ -1155,7 +1156,7 @@ static int read_io_status(modbus_t *ctx, int function,
 
 /* Reads the boolean status of bits and sets the array elements
    in the destination to TRUE or FALSE (single bits). */
-int modbus_read_bits(modbus_t *ctx, int addr, int nb, uint8_t *dest)
+int modbus_read_bits(modbus_t *ctx, int addr, int nb, uint16_t *dest)
 {
     int rc;
 
@@ -1183,7 +1184,7 @@ int modbus_read_bits(modbus_t *ctx, int addr, int nb, uint8_t *dest)
 
 
 /* Same as modbus_read_bits but reads the remote device input table */
-int modbus_read_input_bits(modbus_t *ctx, int addr, int nb, uint8_t *dest)
+int modbus_read_input_bits(modbus_t *ctx, int addr, int nb, uint16_t *dest)
 {
     int rc;
 
@@ -1357,13 +1358,12 @@ int modbus_write_register(modbus_t *ctx, int addr, int value)
 }
 
 /* Write the bits of the array in the remote device */
-int modbus_write_bits(modbus_t *ctx, int addr, int nb, const uint8_t *src)
+int modbus_write_bits(modbus_t *ctx, int addr, int nb, const uint16_t *src)
 {
     int rc;
     int i;
     int byte_count;
     int req_length;
-    int bit_check = 0;
     int pos = 0;
     uint8_t req[MAX_MESSAGE_LENGTH];
 
@@ -1393,7 +1393,7 @@ int modbus_write_bits(modbus_t *ctx, int addr, int nb, const uint8_t *src)
         bit = 0x01;
         req[req_length] = 0;
 
-        while ((bit & 0xFF) && (bit_check++ < nb)) {
+        while ((bit & 0xFF) && (pos < nb)) {
             if (src[pos++])
                 req[req_length] |= bit;
             else

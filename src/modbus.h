@@ -78,6 +78,7 @@ MODBUS_BEGIN_DECLS
 #define MODBUS_FC_WRITE_MULTIPLE_COILS      0x0F
 #define MODBUS_FC_WRITE_MULTIPLE_REGISTERS  0x10
 #define MODBUS_FC_REPORT_SLAVE_ID           0x11
+#define MODBUS_FC_READ_FILE                 0x14
 #define MODBUS_FC_MASK_WRITE_REGISTER       0x16
 #define MODBUS_FC_WRITE_AND_READ_REGISTERS  0x17
 
@@ -209,13 +210,13 @@ MODBUS_API int modbus_set_debug(modbus_t *ctx, int flag);
 
 MODBUS_API const TCHAR *modbus_strerror(int errnum);
 
-MODBUS_API int modbus_read_bits(modbus_t *ctx, int addr, int nb, uint8_t *dest);
-MODBUS_API int modbus_read_input_bits(modbus_t *ctx, int addr, int nb, uint8_t *dest);
+MODBUS_API int modbus_read_bits(modbus_t *ctx, int addr, int nb, uint16_t *dest);
+MODBUS_API int modbus_read_input_bits(modbus_t *ctx, int addr, int nb, uint16_t *dest);
 MODBUS_API int modbus_read_registers(modbus_t *ctx, int addr, int nb, uint16_t *dest);
 MODBUS_API int modbus_read_input_registers(modbus_t *ctx, int addr, int nb, uint16_t *dest);
 MODBUS_API int modbus_write_bit(modbus_t *ctx, int coil_addr, int status);
 MODBUS_API int modbus_write_register(modbus_t *ctx, int reg_addr, int value);
-MODBUS_API int modbus_write_bits(modbus_t *ctx, int addr, int nb, const uint8_t *data);
+MODBUS_API int modbus_write_bits(modbus_t *ctx, int addr, int nb, const uint16_t *data);
 MODBUS_API int modbus_write_registers(modbus_t *ctx, int addr, int nb, const uint16_t *data);
 MODBUS_API int modbus_mask_write_register(modbus_t *ctx, int addr, uint16_t and_mask, uint16_t or_mask);
 MODBUS_API int modbus_write_and_read_registers(modbus_t *ctx, int write_addr, int write_nb,
